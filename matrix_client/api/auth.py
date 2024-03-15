@@ -10,6 +10,6 @@ class RegisterTokenValidityQuery(TypedDict):
 
 @dataclass
 class AuthEndpoints:
-    get_registration_token_validity: GET[RegisterTokenValidityQuery, None] = GET(
+    get_registration_token_validity: GET[None, RegisterTokenValidityQuery] = GET(
         "/_matrix/client/v1/register/m.login.registration_token/validity"
     )

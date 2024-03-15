@@ -1,6 +1,7 @@
 from enum import StrEnum
+from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class MatrixErrorCodes(StrEnum):
@@ -40,8 +41,19 @@ class MatrixErrorCodes(StrEnum):
     M_CANNOT_LEAVE_SERVER_NOTICE_ROOM = "M_CANNOT_LEAVE_SERVER_NOTICE_ROOM"
 
 
-class ErrorResponse(BaseModel):
-    model_config = ConfigDict(extra="allow")
+class ErrorResponseBase(BaseModel):
+    error: str | None = None
 
+
+class ErrorResponse(BaseModel):
     errcode: MatrixErrorCodes
-    error: str
+
+
+class ForbiddenErrorResponse(ErrorResponse):
+    pass
+
+
+class TooManyRequestErrorResponse(ErrorResponseBase):
+    errcode: Literal[MatrixErrorCodes.M_LIMIT_EXCEEDED]
+
+    retry_after_ms: int | None = None

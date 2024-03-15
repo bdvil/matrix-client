@@ -1,7 +1,7 @@
 from enum import StrEnum
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 
 class AuthTypes(StrEnum):
@@ -78,3 +78,7 @@ class TokenAuth(BaseModel):
     type: Literal["m.login.registration_token"]
     token: str
     session: str
+
+
+class RegistrationTokenValidityResponse(BaseModel):
+    valid: bool
