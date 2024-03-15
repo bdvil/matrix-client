@@ -24,7 +24,7 @@ class HTTPMethodNames(StrEnum):
     DELETE = "DELETE"
 
 
-class HTTPMethod[T: Mapping[str, Any] | None, U]:
+class HTTPMethod[T: Mapping[str, Any] | None, U: Mapping[str, Any] | None]:
     method_name: HTTPMethodNames
 
     def __init__(self, url: str):
@@ -33,36 +33,40 @@ class HTTPMethod[T: Mapping[str, Any] | None, U]:
         else:
             self.url = url
 
-    def parse(self, query_args: T, **kwargs: U) -> str:
-        url = self.url.format(**kwargs)
+    def parse(self, url_args: T, query_args: U) -> str:
+        url = self.url
+        if url_args is not None:
+            url = url.format(**url_args)
         return f"{url}{_urlencode(query_args)}"
 
     def __repr__(self) -> str:
         return self.url
 
 
-class GET[T: Mapping[str, Any] | None, U](HTTPMethod[T, U]):
+class GET[T: Mapping[str, Any] | None, U: Mapping[str, Any] | None](HTTPMethod[T, U]):
     method_name = HTTPMethodNames.GET
 
     def __repr__(self) -> str:
         return "GET " + super().__repr__()
 
 
-class POST[T: Mapping[str, Any] | None, U](HTTPMethod[T, U]):
+class POST[T: Mapping[str, Any] | None, U: Mapping[str, Any] | None](HTTPMethod[T, U]):
     method_name = HTTPMethodNames.POST
 
     def __repr__(self) -> str:
         return "POST " + super().__repr__()
 
 
-class PUT[T: Mapping[str, Any] | None, U](HTTPMethod[T, U]):
+class PUT[T: Mapping[str, Any] | None, U: Mapping[str, Any] | None](HTTPMethod[T, U]):
     method_name = HTTPMethodNames.PUT
 
     def __repr__(self) -> str:
         return "PUT " + super().__repr__()
 
 
-class DELETE[T: Mapping[str, Any] | None, U](HTTPMethod[T, U]):
+class DELETE[T: Mapping[str, Any] | None, U: Mapping[str, Any] | None](
+    HTTPMethod[T, U]
+):
     method_name = HTTPMethodNames.DELETE
 
     def __repr__(self) -> str:
