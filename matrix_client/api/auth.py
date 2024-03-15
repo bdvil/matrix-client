@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from matrix_client.api import GET
+from matrix_client.api.http_methods import GET
 
 
 @dataclass

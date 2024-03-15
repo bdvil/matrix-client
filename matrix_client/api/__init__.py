@@ -1,42 +1,24 @@
-from abc import ABC
 from dataclasses import dataclass
-from typing import Any
 
 from matrix_client.api.auth import AuthEndpoints
-
-
-class HTTPMethod(ABC):
-    def __init__(self, url: str, **kwargs: Any):
-        self.url = url
-        self.kwargs = kwargs
-
-    def __repr__(self) -> str:
-        return self.url.format(**self.kwargs)
-
-
-class GET(HTTPMethod):
-    def __repr__(self) -> str:
-        return "GET " + super().__repr__()
-
-
-class POST(HTTPMethod):
-    def __repr__(self) -> str:
-        return "POST " + super().__repr__()
-
-
-class PUT(HTTPMethod):
-    def __repr__(self) -> str:
-        return "PUT " + super().__repr__()
-
-
-class DELETE(HTTPMethod):
-    def __repr__(self) -> str:
-        return "DELETE " + super().__repr__()
+from matrix_client.api.http_methods import DELETE, GET, POST, PUT, URL, HTTPMethodNames
+from matrix_client.api.server_discovery import ServerDiscoveryEndpoints
 
 
 @dataclass
 class Endpoints:
     auth: AuthEndpoints
+    server_discovery: ServerDiscoveryEndpoints
 
 
-__all__ = ["AuthEndpoints", "Endpoints", "GET", "POST", "PUT", "DELETE"]
+__all__ = [
+    "Endpoints",
+    "AuthEndpoints",
+    "ServerDiscoveryEndpoints",
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "URL",
+    "HTTPMethodNames",
+]
