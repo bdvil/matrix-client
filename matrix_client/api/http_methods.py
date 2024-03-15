@@ -1,8 +1,7 @@
 from collections.abc import Mapping
+from enum import StrEnum
 from typing import Any
 from urllib import parse
-
-from _typeshed import StrEnum
 
 
 def _urlencode(data: Mapping[str, Any] | None) -> str:

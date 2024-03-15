@@ -1,14 +1,18 @@
-from dataclasses import dataclass
-
 from matrix_client.api.auth import AuthEndpoints
-from matrix_client.api.http_methods import DELETE, GET, POST, PUT, URL, HTTPMethodNames
+from matrix_client.api.http_methods import (
+    DELETE,
+    GET,
+    POST,
+    PUT,
+    HTTPMethod,
+    HTTPMethodNames,
+)
 from matrix_client.api.server_discovery import ServerDiscoveryEndpoints
 
 
-@dataclass
 class Endpoints:
-    auth: AuthEndpoints
-    server_discovery: ServerDiscoveryEndpoints
+    auth = AuthEndpoints
+    server_discovery = ServerDiscoveryEndpoints
 
 
 __all__ = [
@@ -19,6 +23,6 @@ __all__ = [
     "POST",
     "PUT",
     "DELETE",
-    "URL",
+    "HTTPMethod",
     "HTTPMethodNames",
 ]

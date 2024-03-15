@@ -15,7 +15,7 @@ from matrix_client.types.errors import (
 class MatrixClient:
     def __init__(self, base_url: str) -> None:
         self.base_url = base_url
-        self.session = ClientSession()
+        self.session = ClientSession(self.base_url)
 
     async def __aenter__(self) -> "MatrixClient":
         return self
